@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
 // import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -20,6 +21,18 @@ interface UserTableProps {
 
 const UserTable: React.FC<UserTableProps> = ({ onAddUser }) => {
   const [users, setUsers] = useState<User[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.status.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleEdit = (
     id: number,
@@ -98,8 +111,16 @@ const UserTable: React.FC<UserTableProps> = ({ onAddUser }) => {
 
   return (
     <>
+      <TextField
+        label="Search"
+        variant="outlined"
+        value={searchQuery}
+        onChange={handleSearch}
+        fullWidth
+        margin="normal"
+      />
       <DataGrid
-        rows={users}
+        rows={filteredUsers}
         columns={columns}
         getRowId={(row) => row.id}
         processRowUpdate={(newRow) => {
