@@ -22,21 +22,24 @@ The **Role-Based Access Control (RBAC) Dashboard** is a web application built wi
 Getting Started
 Follow these instructions to set up and run the project locally.
 
-Prerequisites
+## Prerequisites
+
 Node.js (v18 or later)
 npm or Yarn
-Installation
-Clone the Repository
 
-git clone https://github.com/yourusername/rbac-dashboard.git
+Installation
+
+## Clone the Repository
+
+git clone https://github.com/alicode43/assignment
 cd rbac-dashboard 
 
 
-Install Dependencies
+## Install Dependencies
 npm install
 
 
-Run the Development Server
+## Run the Development Server
 npm run dev
 
 ## **Folder Structure**
