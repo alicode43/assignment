@@ -1,7 +1,7 @@
 # **Role-Based Access Control (RBAC) Dashboard**
 
 ## **Overview**
-The **Role-Based Access Control (RBAC) Dashboard** is a web application built with **Next.js 14+**, **TypeScript**, and **Tailwind CSS**. It enables administrators to efficiently manage users, roles, and permissions through a secure and intuitive interface. This project demonstrates core RBAC functionality, including CRUD operations, role assignment, and dynamic permissions.
+The **Role-Based Access Control (RBAC) Dashboard** is a web application built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. It enables administrators to efficiently manage users, roles, and permissions through a secure and intuitive interface. This project demonstrates core RBAC functionality, including CRUD operations, role assignment, and dynamic permissions.
 
 ---
 
@@ -37,6 +37,7 @@ cd rbac-dashboard
 
 ## Install Dependencies
 npm install
+(note if it not work)
 
 
 ## Run the Development Server
