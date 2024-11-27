@@ -21,9 +21,10 @@ export default function UsersPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [addUser, addtUser] = useState<User | null>(null);
+  const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
+ 
   const [users, setUsers] = useState<User[]>([]);
-
 
   useEffect(() => {
     fetch("/api/roles")
@@ -48,14 +49,17 @@ export default function UsersPage() {
       return;
     }
 
+    const errors: { [key: string]: string } = {};
+    if (!name) errors.name = "Name is required.";
+    if (!email) errors.email = "Email is required.";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage("Invalid email format");
-      return;
-    }
+    if (email && !emailRegex.test(email)) errors.email = "Please enter a valid email address.";
+    if (!selectedRole) errors.role = "Role is required.";
+    if (!selectedStatus) errors.status = "Status is required.";
+    setValidationErrors(errors);
+    if (status) errors.status = "Status is required.";
 
     const usersData = {
-     
       name: name,
       email: email,
       role: selectedRole,
@@ -90,7 +94,6 @@ export default function UsersPage() {
       <UserTable 
         onDeleteUser={(id: number) => console.log(`Delete user with id: ${id}`)} 
         onAddUser={handleAddUser} 
-
       />
       <Modal open={open} onClose={() => setOpen(false)} title="Add User" onSubmit={handleSubmit}>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -102,6 +105,8 @@ export default function UsersPage() {
           sx={{ marginBottom: 4 }}
           value={name}
           onChange={(e) => setName(e.target.value)}
+          error={!!validationErrors.name}
+          helperText={validationErrors.name}
         />
         <FormControl fullWidth variant="outlined" sx={{ marginBottom: 4 }}>
           <InputLabel id="role-label">Role</InputLabel>
@@ -111,15 +116,13 @@ export default function UsersPage() {
             onChange={(e) => setSelectedRole(e.target.value)}
             label="Role"
           >
-            <MenuItem value="">
-              <em>Select a role</em>
-            </MenuItem>
             {roles.map((role) => (
               <MenuItem key={role.id} value={role.name}>
                 {role.name}
               </MenuItem>
             ))}
           </Select>
+          {validationErrors.role && <p style={{ color: 'red' }}>{validationErrors.role}</p>}
         </FormControl>
         <TextField
           fullWidth
@@ -129,6 +132,8 @@ export default function UsersPage() {
           sx={{ marginBottom: 4 }}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          error={!!validationErrors.email}
+          helperText={validationErrors.email}
         />
         <FormControl fullWidth variant="outlined" sx={{ marginBottom: 4 }}>
           <InputLabel id="status-label">Status</InputLabel> {/* Update labelId */}
@@ -138,9 +143,6 @@ export default function UsersPage() {
             onChange={(e) => setSelectedStatus(e.target.value)}
             label="Status"
           >
-            <MenuItem value="">
-              <em>Select a Status</em>
-            </MenuItem>
             <MenuItem value="Active">
               Active
             </MenuItem>
@@ -148,6 +150,7 @@ export default function UsersPage() {
               Inactive
             </MenuItem>
           </Select>
+          {validationErrors.status && <p style={{ color: 'red' }}>{validationErrors.status}</p>}
         </FormControl>
       </Modal>
     </div>
