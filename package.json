@@ -15,10 +15,12 @@
     "@mui/material": "^6.1.8",
     "@mui/system": "^6.1.8",
     "@mui/x-data-grid": "^7.22.3",
+    "@react-three/fiber": "^8.17.10",
     "axios": "^1.7.7",
     "next": "15.0.3",
     "react": "^18.2.0",
-    "react-dom":  "^18.2.0"
+    "react-dom": "^18.2.0",
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@types/node": "^20",

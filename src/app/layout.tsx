@@ -1,13 +1,20 @@
 import React from "react";
 import NavBar from "@/components/NavBar";
+import Link from "next/link";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100 text-gray-900">
+      <body className="bg-gradient-to-br from-blue-200 via-purple-200 to-indigo-700 text-gray-900 min-h-screen relative">
         <NavBar />
-        <main className="p-4">{children}</main>
+        {/* Main Content */}
+        <main className="p-6">
+          <Link href="/">
+      
+          </Link>
+          {children}
+        </main>
       </body>
     </html>
   );

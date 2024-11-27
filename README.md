@@ -44,7 +44,7 @@ npm install
 npm run dev
 
 ## **Folder Structure**
-```plaintext
+
 src/
 ├── app/
 │   ├── api/
