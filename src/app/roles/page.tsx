@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RoleTable from "@/components/RoleTable";
 import Modal from "@/components/Modal";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
@@ -14,21 +15,9 @@ type Role = {
   permissions: string[];
 };
 
-export default function RolesPage() {
-  const [open, setOpen] = useState(false);
-  const [role, setRole] = useState("");
+const usePermissions = () => {
   const [permissions, setPermissions] = useState<string[]>([]);
-  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
-  const [roles, setRoles] = useState<Role[]>([]);
-
-  const addRoleToTable = (role: Role) => {
-    setRoles((prevRoles) => {
-      return [...prevRoles, { ...role }];
-    });
-  };
-
-  const handleAddRole = () => {
-    setOpen(true);
+  useEffect(() => {
     axios.get("/api/permissions", {
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +25,22 @@ export default function RolesPage() {
     })
       .then((response) => setPermissions(response.data))
       .catch((error) => console.error("Axios error:", error));
-  };
+  }, []);
+  return permissions;
+};
+
+const useRoles = () => {
+  const [roles, setRoles] = useState<Role[]>([]);
+  const addRole = (role: Role) => setRoles((prevRoles) => [...prevRoles, role]);
+  return { roles, addRole };
+};
+
+export default function RolesPage() {
+  const [open, setOpen] = useState(false);
+  const [role, setRole] = useState("");
+  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
+  const permissions = usePermissions();
+  const { roles, addRole } = useRoles();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -48,13 +52,8 @@ export default function RolesPage() {
   };
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-
     if (event) event.preventDefault();
-
-    const roleData = {
-      name: role,
-      permissions: selectedPermissions,
-    };
+    const roleData = { name: role, permissions: selectedPermissions };
     axios.post("/api/roles", roleData, {
       headers: {
         "Content-Type": "application/json",
@@ -62,27 +61,45 @@ export default function RolesPage() {
     })
       .then((response) => {
         console.log("Role added:", response.data);
-        addRoleToTable({ ...response.data, id: response.data.id }); 
+        addRole({ ...response.data, id: response.data.id });
         setOpen(false);
-       
       })
       .catch((error) => console.error("Axios error:", error));
-    
   };
 
+  // const handleAddRole = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Role Management</h1>
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
-        onClick={handleAddRole}
-      >
-        Add Role
-      </button>
+    <div className="p-6  min-h-screen">
+       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
+       <h1 className="text-3xl font-extrabold mb-6 text-center text-blue-600">Role Management</h1>
+ 
       <RoleTable roles={roles} />
-      <Modal open={open} onClose={handleClose} title="Add Role" onSubmit={handleSubmit} >
+
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{
+          backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+          border: 0,
+          borderRadius: 3,
+          boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+          color: 'white',
+          height: 48,
+          padding: '0 30px',
+          margin: 4,
+          width: '60%',
+          display: 'block', // Center the button
+          marginLeft: 'auto', // Center the button
+          marginRight: 'auto', // Center the button
+        }}
+        onClick={() => setOpen(true)}
+      >
+        Add User
+      </Button>
+
+      <Modal open={open} onClose={handleClose} title="Add Role" onSubmit={handleSubmit}>
         <div>
           <TextField
             label="Role Name"
@@ -107,6 +124,9 @@ export default function RolesPage() {
           ))}
         </div>
       </Modal>
+      
+ 
+    </div>
     </div>
   );
 }

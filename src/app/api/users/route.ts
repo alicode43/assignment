@@ -28,6 +28,16 @@ export async function DELETE(req: Request) {
 
 export async function PUT(req: Request) {
   const updatedUser = await req.json();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (!updatedUser.name || !updatedUser.email || !updatedUser.role || !updatedUser.status) {
+    return NextResponse.json({ success: false, message: "All fields are required" });
+  }
+
+  if (!emailRegex.test(updatedUser.email)) {
+    return NextResponse.json({ success: false, message: "Invalid email format" });
+  }
+
   users = users.map(user => user.id === updatedUser.id ? { ...user, ...updatedUser } : user);
   return NextResponse.json({ success: true, users });
 }

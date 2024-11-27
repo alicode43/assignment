@@ -168,7 +168,7 @@ const UserTable: React.FC<UserTableProps> = ({ onAddUser }) => {
   }, [onAddUser]);
 
   return (
-    <>
+    <div style={{ height:"100%", width: "100%" }}>
       <TextField
         label="Search"
         variant="outlined"
@@ -251,7 +251,7 @@ const UserTable: React.FC<UserTableProps> = ({ onAddUser }) => {
           {validationErrors.status && <p style={{ color: 'red' }}>{validationErrors.status}</p>}
         </FormControl>
       </Modal>
-    </>
+    </div>
   );
 };
 
