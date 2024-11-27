@@ -1,32 +1,24 @@
+# **Role-Based Access Control (RBAC) Dashboard**
 
-Here's a detailed README.md for the RBAC (Role-Based Access Control) system built with Next.js, TypeScript, and Tailwind CSS.
+## **Overview**
+The **Role-Based Access Control (RBAC) Dashboard** is a web application built with **Next.js 14+**, **TypeScript**, and **Tailwind CSS**. It enables administrators to efficiently manage users, roles, and permissions through a secure and intuitive interface. This project demonstrates core RBAC functionality, including CRUD operations, role assignment, and dynamic permissions.
 
-RBAC Dashboard
-A Role-Based Access Control (RBAC) dashboard built using Next.js 14+, TypeScript, and Tailwind CSS. This application provides an admin interface for managing users, roles, and permissions.
+---
 
-Features
-User Management
+## **Features**
+### **Core Functionality**
+- **User Management**: Add, edit, delete users, and assign roles or statuses (Active/Inactive).
+- **Role Management**: Create and edit roles, and assign permissions dynamically.
+- **Permission Management**: Manage a list of permissions like Read, Write, Delete, and more.
 
-View, add, edit, and delete users.
-Assign roles to users.
-Manage user statuses (Active/Inactive).
-Role Management
+### **Technical Highlights**
+- **Next.js File-Based Routing**: Intuitive and scalable routing structure.
+- **TypeScript**: Ensures type safety and maintainability.
+- **Tailwind CSS**: Delivers a clean, responsive, and modern UI.
+- **Reusable Components**: Simplifies code with modular components for tables, modals, and navigation.
 
-Create and edit roles.
-Assign permissions to roles.
-Display roles and associated permissions.
-Permission Management
+---
 
-Manage and view available permissions.
-Assign permissions to roles dynamically.
-Reusable Components
-
-Table components for users, roles, and permissions.
-Reusable modal for forms and other UI interactions.
-Tech Stack
-
-Frontend: Next.js, TypeScript, Tailwind CSS.
-Backend: Next.js API routes (mocked API for CRUD operations).
 Getting Started
 Follow these instructions to set up and run the project locally.
 
@@ -36,32 +28,22 @@ npm or Yarn
 Installation
 Clone the Repository
 
-bash
-Copy code
 git clone https://github.com/yourusername/rbac-dashboard.git
-cd rbac-dashboard
+cd rbac-dashboard 
+
+
 Install Dependencies
-
-bash
-Copy code
 npm install
-# or
-yarn install
+
+
 Run the Development Server
-
-bash
-Copy code
 npm run dev
-# or
-yarn dev
-Access the Application Open your browser and navigate to http://localhost:3000.
 
-Project Structure
-plaintext
-Copy code
+## **Folder Structure**
+```plaintext
 src/
 ├── app/
-│   ├── api/                # Backend API routes for Users, Roles, Permissions
+│   ├── api/
 │   │   ├── users/
 │   │   │   └── route.ts
 │   │   ├── roles/
@@ -69,71 +51,18 @@ src/
 │   │   ├── permissions/
 │   │   │   └── route.ts
 │   ├── users/
-│   │   └── page.tsx        # User Management Page
+│   │   └── page.tsx
 │   ├── roles/
-│   │   └── page.tsx        # Role Management Page
+│   │   └── page.tsx
 │   ├── permissions/
-│   │   └── page.tsx        # Permission Management Page
-│   └── layout.tsx          # Application Layout
-├── components/             # Reusable Components
+│   │   └── page.tsx
+│   └── layout.tsx
+├── components/
 │   ├── UserTable.tsx
 │   ├── RoleTable.tsx
 │   ├── PermissionTable.tsx
 │   ├── Modal.tsx
 │   └── NavBar.tsx
 ├── styles/
-│   └── globals.css         # Tailwind CSS styles
-└── README.md               # Documentation
-Key Components
-UserTable
-A responsive table to display user details. Includes:
-
-ID
-Name
-Email
-Role
-Status
-RoleTable
-A table to display roles and associated permissions.
-
-PermissionTable
-Displays a list of permissions.
-
-Modal
-A reusable modal for forms and user interactions.
-
-NavBar
-Navigation bar with links to Users, Roles, and Permissions pages.
-
-API Endpoints
-Users API (/api/users)
-GET: Fetch a list of users.
-POST: Create a new user.
-PUT: Update an existing user.
-DELETE: Delete a user.
-Roles API (/api/roles)
-GET: Fetch a list of roles.
-POST: Create a new role.
-PUT: Update an existing role.
-DELETE: Delete a role.
-Permissions API (/api/permissions)
-GET: Fetch a list of permissions.
-POST: Add a new permission.
-DELETE: Delete a permission.
-(Note: These are mock APIs implemented in route.ts files.)
-
-Styling
-All styles are implemented using Tailwind CSS. Tailwind provides utility-first classes for rapid UI development. Customize styles in styles/globals.css.
-
-Screenshots
-Users Page
-
-Roles Page
-
-Permissions Page
-
-Future Enhancements
-Implement real database integration (e.g., MongoDB, PostgreSQL).
-Add authentication and authorization.
-Enable sorting, filtering, and searching for tables.
-Implement pagination for large datasets.
+│   └── globals.css
+└── README.md
