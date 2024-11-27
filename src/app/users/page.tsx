@@ -21,10 +21,9 @@ export default function UsersPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [addUser, addtUser] = useState<User | null>(null);
+ 
   const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
  
-  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     fetch("/api/roles")
@@ -32,15 +31,10 @@ export default function UsersPage() {
       .then((data) => setRoles(data));
   }, []);
 
+ 
   const handleAddUser = (newUser: User) => {
-    setUsers((prevUsers) => {
-      if (prevUsers.find(user => user.id === newUser.id)) {
-        return prevUsers;
-      }
-      return [...prevUsers, newUser];
-    });
+    console.log("User added:", newUser);
   };
-
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     if (event) event.preventDefault();
 
